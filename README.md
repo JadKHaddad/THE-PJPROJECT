@@ -4,7 +4,7 @@
 The PJPROJECT is a free and open source multimedia communication library written in C language implementing standard based protocols such as SIP, SDP, RTP, STUN, TURN, and ICE. It combines signaling protocol (SIP) with rich multimedia framework and NAT traversal functionality into high level API that is portable and suitable for almost any type of systems ranging from desktops, embedded systems, to mobile handsets.
 
 ## Contents
-* Rust binding for pjsua
+* Rust bindings for pjsua
 * Pip-installable pjsua2 python module
 * Installing pjsip on Debian
 * Pjsua usage examples in ```c``` and ```rust```
