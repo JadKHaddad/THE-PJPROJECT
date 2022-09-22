@@ -1,11 +1,11 @@
 extern crate bindgen;
 use std::process::Command;
-//use bindgen::EnumVariation;
+use std::process::Stdio;
 
 pub fn main() {
     println!("cargo:rerun-if-changed=../pjproject/pjsip/include/pjsua.h");
     println!("cargo:rerun-if-changed=build.rs");
-    
+
     println!("cargo:rustc-link-search=../pjproject/pjsip/lib");
     println!("cargo:rustc-link-search=../pjproject/pjlib/lib");
     println!("cargo:rustc-link-search=../pjproject/pjlib-util/lib");
@@ -35,20 +35,30 @@ pub fn main() {
     println!("cargo:rustc-link-lib=webrtc");
     println!("cargo:rustc-link-lib=yuv");
 
-    // Command::new("sh")
-    //         .arg("-c")
-    //         .arg("make dep")
-    //         .current_dir("../pjproject")
-    //         .output()
-    //         .expect("failed to execute make dep");
+    Command::new("sh")
+        .arg("-c")
+        .arg("./configure --enable-shared")
+        .current_dir("../pjproject")
+        .stdout(Stdio::inherit())
+        .output()
+        .expect("failed to execute configure ");
 
-    // Command::new("sh")
-    //         .arg("-c")
-    //         .arg("make")
-    //         .current_dir("../pjproject")
-    //         .output()
-    //         .expect("failed to execute make");
-            
+    Command::new("sh")
+        .arg("-c")
+        .arg("make dep")
+        .current_dir("../pjproject")
+        .stdout(Stdio::inherit())
+        .output()
+        .expect("failed to execute make dep");
+
+    Command::new("sh")
+        .arg("-c")
+        .arg("make")
+        .current_dir("../pjproject")
+        .stdout(Stdio::inherit())
+        .output()
+        .expect("failed to execute make");
+
     let bindings = bindgen::Builder::default()
         .header("../pjproject/pjsip/include/pjsua.h")
         .clang_args(["-I", "../pjproject/pjsip/include"])
@@ -67,9 +77,9 @@ pub fn main() {
         .generate()
         .expect("Couldn't generate bindings!");
 
-        let out_path = std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap());
+    let out_path = std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap());
 
-        bindings
-            .write_to_file(out_path.join("bindings.rs"))
-            .expect("Couldn't write bindings!");
+    bindings
+        .write_to_file(out_path.join("bindings.rs"))
+        .expect("Couldn't write bindings!");
 }
