@@ -1,7 +1,7 @@
 #include <pjsua2.hpp>
 #include <iostream>
 
-#define SIP_DOMAIN "192.168.178.64:5060"
+#define SIP_DOMAIN "kamailio5.5.0-trusty:5060"
 #define SIP_USER "user1"
 #define SIP_PASSWD "user1"
 

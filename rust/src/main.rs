@@ -6,11 +6,10 @@ use std::ffi::CString;
 use std::mem::MaybeUninit;
 use std::os::raw::c_int;
 use std::ptr;
-use std::env;
 
 include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
-const SIP_DOMAIN: &str = "192.168.178.64:5060";
+const SIP_DOMAIN: &str = "kamailio5.5.0-trusty:5060";
 const SIP_USER: &str = "user1";
 const SIP_PASSWD: &str = "user1";
 

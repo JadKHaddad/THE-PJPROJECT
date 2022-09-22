@@ -1,0 +1,35 @@
+FROM debian:11-slim
+
+RUN apt update
+RUN apt install -y git gcc make g++ python3 python3-dev swig curl clang
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+RUN export PATH=$PATH:/root/.cargo/bin
+
+WORKDIR /home
+RUN git clone https://github.com/JadKHaddad/THE-PJPROJECT.git --depth 1 THE-PJPROJECT
+
+WORKDIR /home/THE-PJPROJECT/pjproject
+
+RUN ./configure --enable-shared
+RUN make dep
+RUN make
+RUN make install
+
+WORKDIR /home/THE-PJPROJECT
+
+RUN chmod u+x ./copy-lib-include.sh
+RUN ./copy-lib-include.sh
+
+WORKDIR /home/THE-PJPROJECT/pjproject/pjsip-apps/src/swig/python
+
+RUN make
+RUN make install
+
+ENV LD_LIBRARY_PATH /usr/local/lib
+
+WORKDIR /home/THE-PJPROJECT
+
+CMD ["/bin/bash"]
+
+# docker build -t pjsip -f dockerfiles/Dockerfile.debian . 
+# docker run -it --rm --network net --add-host=host.docker.internal:host-gateway pjsip
