@@ -14,4 +14,4 @@ cp -R ./pjproject/pjlib-util/include/*    ./include
 cp -R ./pjproject/pjmedia/include/*       ./include
 cp -R ./pjproject/pjnath/include/*        ./include
 
-#chmod u+x ./configure.sh
+#chmod u+x ./copy-lib-include
