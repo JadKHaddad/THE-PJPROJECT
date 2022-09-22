@@ -2,6 +2,11 @@
 **/lib
 **/bin
 **/out
+c/*.o
+c/*.a
+cpp/*.o
+cpp/*.a
+/include
 
 pjproject/build.mak
 pjproject/build/cc-auto.mak
