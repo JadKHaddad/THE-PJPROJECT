@@ -6,8 +6,13 @@ use std::ffi::CString;
 use std::mem::MaybeUninit;
 use std::os::raw::c_int;
 use std::ptr;
+use std::env;
 
 include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+
+const SIP_DOMAIN: &str = "192.168.178.64:5060";
+const USERNAME: &str = "user1";
+const PASWORD: &str = "user1";
 
 pub unsafe extern "C" fn on_incoming_call(
     _acc_id: pjsua_acc_id,
@@ -50,26 +55,26 @@ fn main() {
         let mut acc_cfg = MaybeUninit::<pjsua_acc_config>::uninit().assume_init();
         pjsua_acc_config_default(&mut acc_cfg);
 
-        let id = CString::new("sip:user2@192.168.178.64:5060").unwrap();
+        let id = CString::new(&*format!("sip:{}@{}", USERNAME, SIP_DOMAIN)).unwrap();
         acc_cfg.id = pj_str(id.as_ptr() as *mut i8);
 
-        let uri = CString::new("sip:192.168.178.64:5060").unwrap();
+        let uri = CString::new(&*format!("sip:{}",SIP_DOMAIN)).unwrap();
         acc_cfg.reg_uri = pj_str(uri.as_ptr() as *mut i8);
 
         acc_cfg.cred_count = 1;
 
-        let sip_domain = CString::new("192.168.178.64:5060").unwrap();
+        let sip_domain = CString::new(SIP_DOMAIN).unwrap();
         acc_cfg.cred_info[0].realm = pj_str(sip_domain.as_ptr() as *mut i8);
 
-        let digits = CString::new("digest").unwrap();
-        acc_cfg.cred_info[0].scheme = pj_str(digits.as_ptr() as *mut i8);
+        let digest = CString::new("digest").unwrap();
+        acc_cfg.cred_info[0].scheme = pj_str(digest.as_ptr() as *mut i8);
 
-        let username = CString::new("user2").unwrap();
+        let username = CString::new(USERNAME).unwrap();
         acc_cfg.cred_info[0].username = pj_str(username.as_ptr() as *mut i8);
 
         acc_cfg.cred_info[0].data_type = pjsip_cred_data_type_PJSIP_CRED_DATA_PLAIN_PASSWD as i32;
 
-        let password = CString::new("user2").unwrap();
+        let password = CString::new(PASWORD).unwrap();
         acc_cfg.cred_info[0].data = pj_str(password.as_ptr() as *mut i8);
 
         let mut acc_id = MaybeUninit::<pjsua_acc_id>::uninit().assume_init();

@@ -1,6 +1,19 @@
 extern crate bindgen;
-use std::process::Command;
-use std::process::Stdio;
+use std::fs;
+use std::path::Path;
+// use std::process::Command;
+// use std::process::Stdio;
+
+fn copy_all_files(src: &str, dst: &str) {
+    fs::create_dir_all(dst)
+        .expect("failed to create directory");
+    let paths = fs::read_dir(src).expect("failed to read directory");
+    for path in paths {
+        let path = path.unwrap().path();
+        let file_name = path.file_name().unwrap().to_str().unwrap();
+        fs::copy(&path, Path::new(dst).join(file_name)).expect("failed to copy file");
+    }
+}
 
 pub fn main() {
     println!("cargo:rerun-if-changed=../pjproject/pjsip/include/pjsua.h");
@@ -35,29 +48,39 @@ pub fn main() {
     println!("cargo:rustc-link-lib=webrtc");
     println!("cargo:rustc-link-lib=yuv");
 
-    Command::new("sh")
-        .arg("-c")
-        .arg("./configure --enable-shared")
-        .current_dir("../pjproject")
-        .stdout(Stdio::inherit())
-        .output()
-        .expect("failed to execute configure ");
+    // compile pjsip
+    // {
+    //     Command::new("sh")
+    //     .arg("-c")
+    //     .arg("./configure --enable-shared")
+    //     .current_dir("../pjproject")
+    //     .stdout(Stdio::inherit())
+    //     .output()
+    //     .expect("failed to execute configure ");
 
-    Command::new("sh")
-        .arg("-c")
-        .arg("make dep")
-        .current_dir("../pjproject")
-        .stdout(Stdio::inherit())
-        .output()
-        .expect("failed to execute make dep");
+    //     Command::new("sh")
+    //         .arg("-c")
+    //         .arg("make dep")
+    //         .current_dir("../pjproject")
+    //         .stdout(Stdio::inherit())
+    //         .output()
+    //         .expect("failed to execute make dep");
 
-    Command::new("sh")
-        .arg("-c")
-        .arg("make")
-        .current_dir("../pjproject")
-        .stdout(Stdio::inherit())
-        .output()
-        .expect("failed to execute make");
+    //     Command::new("sh")
+    //         .arg("-c")
+    //         .arg("make")
+    //         .current_dir("../pjproject")
+    //         .stdout(Stdio::inherit())
+    //         .output()
+    //         .expect("failed to execute make");
+    // }
+    
+    copy_all_files("../pjproject/pjsip/lib", "./lib");
+    copy_all_files("../pjproject/pjlib/lib", "./lib");
+    copy_all_files("../pjproject/pjlib-util/lib", "./lib");
+    copy_all_files("../pjproject/pjmedia/lib", "./lib");
+    copy_all_files("../pjproject/pjnath/lib", "./lib");
+    copy_all_files("../pjproject/third_party/lib", "./lib");
 
     let bindings = bindgen::Builder::default()
         .header("../pjproject/pjsip/include/pjsua.h")
