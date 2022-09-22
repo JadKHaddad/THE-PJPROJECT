@@ -31,5 +31,7 @@ WORKDIR /home/THE-PJPROJECT
 
 CMD ["/bin/bash"]
 
+# docker build -t pjsip -f dockerfiles/Dockerfile.debian . && docker run -it --rm --network net --add-host=host.docker.internal:host-gateway pjsip
 # docker build -t pjsip -f dockerfiles/Dockerfile.debian . 
 # docker run -it --rm --network net --add-host=host.docker.internal:host-gateway pjsip
+# docker run -it --rm --network net --add-host=host.docker.internal:host-gateway -v ${pwd}:/home/THE-PJPROJECT pjsip
