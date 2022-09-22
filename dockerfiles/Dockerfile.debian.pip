@@ -4,14 +4,13 @@ RUN apt update
 RUN apt install -y git gcc make g++ python3 python3-dev python3-pip swig
 
 WORKDIR /home
-RUN git clone https://github.com/JadKHaddad/THE-PJPROJECT.git --depth 1 THE-PJPROJECT
+RUN pip3 install git+https://github.com/JadKHaddad/THE-PJPROJECT.git --verbose
 
 ENV LD_LIBRARY_PATH /usr/local/lib
 
-COPY setup.py /home/THE-PJPROJECT/setup.py
-COPY helper.mak /home/THE-PJPROJECT/helper.mak
+COPY . /home/THE_PJPROJECT
 
-WORKDIR /home/THE-PJPROJECT
+WORKDIR /home/THE_PJPROJECT
 
 CMD ["/bin/bash"]
 
