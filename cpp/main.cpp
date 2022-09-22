@@ -2,8 +2,8 @@
 #include <iostream>
 
 #define SIP_DOMAIN "192.168.178.64:5060"
-#define USERNAME "user1"
-#define PASSWORD "user1"
+#define SIP_USER "user1"
+#define SIP_PASSWD "user1"
 
 using namespace pj;
 
@@ -44,9 +44,9 @@ int main()
     // Configure an AccountConfig
     AccountConfig acfg;
 
-    acfg.idUri =  string("sip:") + string(USERNAME) + "@" + string(SIP_DOMAIN);
+    acfg.idUri =  string("sip:") + string(SIP_USER) + "@" + string(SIP_DOMAIN);
     acfg.regConfig.registrarUri = string("sip:") + string(SIP_DOMAIN);
-    AuthCredInfo cred("digest", "*", USERNAME, 0, PASSWORD);
+    AuthCredInfo cred("digest", "*", SIP_USER, 0, SIP_PASSWD);
     acfg.sipConfig.authCreds.push_back( cred );
 
     // Create the account
