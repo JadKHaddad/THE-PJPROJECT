@@ -1,0 +1,28 @@
+#FROM andrius/asterisk
+
+FROM ubuntu:22.04
+
+RUN apt update
+RUN DEBIAN_FRONTEND=noninteractive apt install -y asterisk
+
+COPY dockerfiles/askerisk/sip.conf /etc/asterisk/sip.conf
+COPY dockerfiles/askerisk/extensions.conf /etc/asterisk/extensions.conf
+COPY dockerfiles/askerisk/voicemail.conf /etc/asterisk/voicemail.conf
+#COPY dockerfiles/askerisk/rtp.conf /etc/asterisk/rtp.conf
+#COPY dockerfiles/askerisk/pjsip_transport.conf /etc/asterisk/pjsip_transport.conf
+#COPY dockerfiles/askerisk/pjsip_wizard.conf /etc/asterisk/pjsip_wizard.conf
+
+#RUN asterisk -rx "module load chan_sip.so"
+
+#EXPOSE 5038/tcp
+#EXPOSE 4569/udp
+EXPOSE 5060/udp
+#EXPOSE 13000-16000/udp
+
+RUN apt-get install -y net-tools
+CMD ["asterisk","-cvvvvv"]
+
+# --network net
+# docker build -t asterisk -f dockerfiles/Dockerfile.asterisk .
+# docker run -it --rm --name asterisk -p 5060:5060/udp asterisk  
+# docker run -it --rm --name asterisk --net=host asterisk 
