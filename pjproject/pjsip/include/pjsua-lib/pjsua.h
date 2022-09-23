@@ -3350,7 +3350,7 @@ PJ_DECL(pj_status_t) pjsua_transport_lis_start( pjsua_transport_id id,
  * Maximum accounts.
  */
 #ifndef PJSUA_MAX_ACC
-#   define PJSUA_MAX_ACC	    8
+#   define PJSUA_MAX_ACC	    32
 #endif
 
 
@@ -4934,7 +4934,7 @@ PJ_DECL(pj_status_t) pjsua_acc_set_transport(pjsua_acc_id acc_id,
  * Maximum simultaneous calls.
  */
 #ifndef PJSUA_MAX_CALLS
-#   define PJSUA_MAX_CALLS	    4
+#   define PJSUA_MAX_CALLS	    32
 #endif
 
 /**
