@@ -104,9 +104,6 @@ chmod u+x ./copy-lib-include.sh
 ./copy-lib-include.sh
 ```
 * Now you can set the environment variable ```LD_LIBRARY_PATH``` to the directory where the libraries are located
-```sh
-export LD_LIBRARY_PATH=./lib
-```
 
 ## Don't have a sip server or Debian?
 
