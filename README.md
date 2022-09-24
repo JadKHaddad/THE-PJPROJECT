@@ -134,3 +134,4 @@ docker run -it --rm --name pjsip --network net --add-host=host.docker.internal:h
 
 ## Notes
 * pjproject cloned from the official repository on 2022-09-22
+* ```PJSUA_MAX_CALLS``` and ```PJSUA_MAX_ACC``` are set in ```pjproject/pjsip/include/pjsua-lib/pjsua.h``` to ```32```. You can change them to any value less than 32 to save memory. You have to recompile the project after changing the values.
