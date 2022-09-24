@@ -30,8 +30,6 @@ import sys
 # Get 'make' from environment variable if any
 MAKE = os.environ.get('MAKE') or "make"
 
-print(f"-----------------> args: {sys.argv} <-----------------" )
-
 if sys.argv[1] == "bdist_wheel":
     current_dir = Path(__file__).absolute().parent.joinpath("pjproject")
 
@@ -120,27 +118,27 @@ if pj_version_suffix:
 #print 'PJ_VERSION = "'+ pj_version + '"'
 
 # Get targetname
-f = os.popen("%s --no-print-directory -f ./helper.mak target_name" % MAKE)
+f = os.popen("%s --no-print-directory -f ./pip/helper.mak target_name" % MAKE)
 pj_target_name = f.read().rstrip("\r\n")
 f.close()
 
 # Fill in extra_compile_args
 extra_compile_args = []
-f = os.popen("%s --no-print-directory -f ./helper.mak cflags" % MAKE)
+f = os.popen("%s --no-print-directory -f ./pip/helper.mak cflags" % MAKE)
 for line in f:
     extra_compile_args.append(line.rstrip("\r\n"))
 f.close()
 
 # Fill in libraries
 libraries = []
-f = os.popen("%s --no-print-directory -f ./helper.mak libs" % MAKE)
+f = os.popen("%s --no-print-directory -f ./pip/helper.mak libs" % MAKE)
 for line in f:
     libraries.append(line.rstrip("\r\n"))
 f.close()
 
 # Fill in extra_link_args
 extra_link_args = []
-f = os.popen("%s --no-print-directory -f ./helper.mak ldflags" % MAKE)
+f = os.popen("%s --no-print-directory -f ./pip/helper.mak ldflags" % MAKE)
 for line in f:
     extra_link_args.append(line.rstrip("\r\n"))
 f.close()

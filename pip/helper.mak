@@ -1,5 +1,5 @@
 include ./pjproject/build.mak
-include $(PJDIR)/build/common.mak
+include ./pjproject/build/common.mak
 
 ldflags:
 	@for token in `echo $(PJ_LDXXFLAGS) $(LDFLAGS)`; do \
