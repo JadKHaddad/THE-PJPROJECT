@@ -18,7 +18,7 @@ RUN make install
 WORKDIR /home/THE-PJPROJECT
 
 RUN chmod u+x ./copy-lib-include.sh
-RUN ./copy-lib-include.sh
+RUN bash ./copy-lib-include.sh
 
 WORKDIR /home/THE-PJPROJECT/pjproject/pjsip-apps/src/swig/python
 
