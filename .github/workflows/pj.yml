@@ -27,22 +27,19 @@ jobs:
     - name: build pjsip
       working-directory: ./pjproject
       run: |
-        sudo ./configure --enable-shared
-        sudo make dep
-        sudo make
+        ./configure --enable-shared
+        make dep
+        make
         sudo make install
         
     - name: build python module
       working-directory: ./pjproject/pjsip-apps/src/swig/python
       run: |
-        sudo make
-        sudo make install
+        make
+        make install
         
     - name: export env
       run: export LD_LIBRARY_PATH=/usr/local/lib
-      
-    - name: test python module
-      run: python3 -c 'import pjsua2'
       
     - name: compile c example
       working-directory: ./c
@@ -55,3 +52,6 @@ jobs:
     - name: compile rust example
       working-directory: ./rust
       run: cargo build
+    
+    - name: test python module
+      run: python3 -c 'import pjsua2'
