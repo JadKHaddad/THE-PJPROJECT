@@ -18,7 +18,7 @@ jobs:
     - name: install rust
       run: |
         sudo curl https://sh.rustup.rs -sSf | sh -s -- -y
-        sudo export PATH=$PATH:/root/.cargo/bin
+        export PATH=$PATH:/root/.cargo/bin
     - name: build pjsip
       working-directory: ./pjproject
       run: |
@@ -32,4 +32,4 @@ jobs:
         sudo make
         sudo make install
     - name: export env
-      run: sudo export LD_LIBRARY_PATH="/usr/local/lib"
+      run: export LD_LIBRARY_PATH=/usr/local/lib
