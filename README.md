@@ -133,7 +133,7 @@ docker run -it --rm --name pjsip --network net --add-host=host.docker.internal:h
 * [pjsua2 Documantation](https://www.pjsip.org/docs/book-latest/html/)
 
 ## Notes
-* pjproject cloned from the official repository on 2022-09-22
+* pjproject downloaded from the official [release page](https://github.com/pjsip/pjproject/releases) in version ```2.13``` on ```2022-12-06```
 * ```PJSUA_MAX_CALLS```, ```PJSUA_MAX_ACC```, ```PJSUA_MAX_PLAYERS``` and ```PJSUA_MAX_RECORDERS``` are set in ```pjproject/pjsip/include/pjsua-lib/pjsua.h``` to ```32```. You can change them to any value less than 32 to save memory.
 * ```PJ_IOQUEUE_MAX_HANDLES``` is set in ```pjproject/pjlib/include/pj/config.h``` to ```128```.
 * ```RTP_RETRY``` is set in ```pjproject/pjsip/src/pjsua-lib/pjsua_media.c``` to ```10000``` to try bind to ```5000``` ports when establishing calls.
