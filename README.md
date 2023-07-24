@@ -17,7 +17,7 @@ The PJPROJECT is a free and open source multimedia communication library written
 ```sh
 sudo apt install -y gcc g++ make
 ``` 
-* For generating the rust bindings for pjsau, you need to install ```rust``` and ```clang```
+* For generating the rust bindings for pjsau, you need to install ```rust```, ```clang``` and ```pkg-config```
 ```sh
 sudo apt install -y curl clang pkg-config
 sudo curl https://sh.rustup.rs -sSf | sh -s -- -y
