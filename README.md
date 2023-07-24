@@ -19,7 +19,7 @@ sudo apt install -y gcc g++ make
 ``` 
 * For generating the rust bindings for pjsau, you need to install ```rust``` and ```clang```
 ```sh
-sudo apt install -y curl clang
+sudo apt install -y curl clang pkg-config
 sudo curl https://sh.rustup.rs -sSf | sh -s -- -y
 ```
 * For building the pjsua2 python module, you need to install ```python3```, ```python3-dev``` and ```swig```
@@ -83,6 +83,7 @@ make clean
 * Rust
 ```sh
 cd rust
+cd demo
 cargo run
 cargo clean
 ``` 
