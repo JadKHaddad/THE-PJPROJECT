@@ -20,7 +20,7 @@ jobs:
       run: sudo apt update
       
     - name: install dep
-      run: sudo apt install -y git gcc make g++ python3 python3-dev swig curl clang
+      run: sudo apt install -y git gcc make g++ python3 python3-dev swig curl clang pkg-config
       
     - name: install rust
       run: |
@@ -53,5 +53,5 @@ jobs:
       run: make
       
     - name: compile rust example
-      working-directory: ./rust
+      working-directory: ./rust/pjsua
       run: cargo build
