@@ -164,7 +164,7 @@ docker run -it --rm --name kamailio5.5.0-trusty --network net -p 5060:5060/udp k
 ```sh
 docker build -t pjsip -f dockerfiles/Dockerfile.debian .
 
-docker run -it --rm --name pjsip --network net --add-host=host.docker.internal:host-gateway pjsip
+docker run -it --rm --name pjsip --network net --add-host=host.docker.internal:host-gateway -v $(pwd):/home/THE-PJPROJECT pjsip
 ```
 
 * Inside the pjsip container, run the examples using ```kamailio5.5.0-trusty:5060``` as a sip domain
